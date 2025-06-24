@@ -1,0 +1,61 @@
+// Цветовая палитра и переменные для LTV
+$color-primary: #2563eb !default;
+$color-secondary: #22c55e !default;
+$color-bg: #f9fafb !default;
+$color-text: #1e293b !default;
+$color-shadow: rgba(0,0,0,0.05) !default;
+$radius-xl: 2rem !default;
+$transition: 0.3s cubic-bezier(0.4,0,0.2,1) !default;
+$font-main: 'Inter', 'Segoe UI', Arial, sans-serif !default;
+
+// Улучшенные переменные для акцентов и состояний
+$color-accent: #f59e42 !default;
+$color-error: #ef4444 !default;
+$color-success: #22c55e !default;
+$color-warning: #facc15 !default;
+
+// Переменные CSS для использования в компонентах
+:root {
+  --color-primary: #2563eb;
+  --color-secondary: #22c55e;
+  --color-accent: #f59e42;
+  --color-error: #ef4444;
+  --color-success: #22c55e;
+  --color-warning: #facc15;
+  --color-bg: #f9fafb;
+  --color-text: #1e293b;
+  --color-shadow: 0 4px 24px 0 rgba(0,0,0,0.05);
+  --radius-xl: 2rem;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  margin: 0;
+  min-height: 100vh;
+}
+
+// Миксины для тени и скругления
+@mixin card {
+  background: #fff;
+  border-radius: $radius-xl;
+  box-shadow: 0 4px 24px 0 $color-shadow;
+  transition: box-shadow $transition;
+}
+
+@mixin btn {
+  border-radius: $radius-xl;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  transition: background $transition, color $transition;
+  cursor: pointer;
+}
+
+// Миксин для состояния disabled
+@mixin disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}

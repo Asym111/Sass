@@ -1,0 +1,183 @@
+:root {
+  --color-primary: #2563eb;
+  --color-secondary: #22c55e;
+  --color-accent: #f59e42;
+  --color-error: #ef4444;
+  --color-success: #22c55e;
+  --color-warning: #facc15;
+  --color-bg: #f9fafb;
+  --color-text: #1e293b;
+  --color-shadow: 0 4px 24px 0 rgba(0,0,0,0.05);
+  --radius-xl: 2rem;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-main: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  margin: 0;
+  min-height: 100vh;
+}
+
+.ltv-actions {
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+}
+.ltv-actions h2 {
+  color: #2563eb;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.ltv-actions__loading, .ltv-actions__error {
+  text-align: center;
+  padding: 2rem;
+  color: #1e293b;
+}
+.ltv-actions__error {
+  color: #ef4444;
+}
+.ltv-actions__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  .ltv-actions__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.ltv-actions__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+.ltv-actions__card {
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.ltv-actions__card:hover {
+  transform: translateY(-2px);
+}
+.ltv-actions__card-header {
+  padding: 1rem;
+  background: #2563eb;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ltv-actions__card-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+.ltv-actions__status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+.ltv-actions__status--active {
+  background: #22c55e;
+}
+.ltv-actions__status--draft {
+  background: #facc15;
+}
+.ltv-actions__status--completed {
+  background: #3b82f6;
+}
+.ltv-actions__status--cancelled {
+  background: #ef4444;
+}
+.ltv-actions__card-body {
+  padding: 1rem;
+}
+.ltv-actions__card-body p {
+  margin: 0.5rem 0;
+  color: #1e293b;
+}
+.ltv-actions__details {
+  margin-top: 1rem;
+}
+.ltv-actions__details ul {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+}
+.ltv-actions__details li {
+  margin: 0.25rem 0;
+  color: rgb(64.3820224719, 87.9887640449, 126.6179775281);
+}
+.ltv-actions__card-footer {
+  padding: 1rem;
+  border-top: 1px solid rgb(178.7640449438, 192.9775280899, 216.2359550562);
+  display: flex;
+  justify-content: flex-end;
+}
+.ltv-actions__form {
+  background: #fff;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.05);
+}
+.ltv-actions__form h3 {
+  color: #2563eb;
+  margin-bottom: 1.5rem;
+}
+.ltv-actions__form .form-group {
+  margin-bottom: 1rem;
+}
+.ltv-actions__form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: rgb(64.3820224719, 87.9887640449, 126.6179775281);
+}
+.ltv-actions__form .form-group input,
+.ltv-actions__form .form-group select,
+.ltv-actions__form .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgb(178.7640449438, 192.9775280899, 216.2359550562);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+.ltv-actions__form .form-group input:focus,
+.ltv-actions__form .form-group select:focus,
+.ltv-actions__form .form-group textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+.ltv-actions__form .form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.ltv-actions__form button {
+  width: 100%;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.ltv-actions__form button:hover {
+  background: rgb(18.5714285714, 76.1428571429, 202.4285714286);
+}
+.ltv-actions__form button:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
