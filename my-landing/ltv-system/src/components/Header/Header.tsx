@@ -7,14 +7,19 @@ import LanguageSwitcher from '../LanguageSwitcher';
 import { mockClients, mockTransactions } from '../mockSearchData';
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export const Header: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate();
 
   const handleResultClick = (type: 'client' | 'transaction', id: string) => {
-    // TODO: реализовать переход к клиенту/транзакции или выделение
-    alert(`Переход к ${type === 'client' ? 'клиенту' : 'транзакции'} с id: ${id}`);
+    if (type === 'client') {
+      navigate(`/clients?id=${id}`);
+    } else {
+      navigate(`/transactions?id=${id}`);
+    }
   };
 
   const handleVoiceCommand = (command: string) => {
