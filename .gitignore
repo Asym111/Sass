@@ -1,0 +1,9 @@
+# Ignore backup files
+*.bak
+
+# Ignore temporary files
+Untitled-*.txt
+Untitled-*.json
+
+# Ignore stray file named .json
+/.json
