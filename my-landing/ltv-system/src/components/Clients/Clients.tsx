@@ -14,6 +14,11 @@ export const Clients: React.FC = () => {
   const [bonusAmount, setBonusAmount] = useState<number>(0);
   const [bonusReason, setBonusReason] = useState<string>('');
   const [bonusType, setBonusType] = useState<'charge' | 'writeoff'>('charge');
+  const [showEditClientModal, setShowEditClientModal] = useState(false);
+  const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [editClientData, setEditClientData] = useState<
+    Omit<Client, 'id' | 'business_id' | 'created_at' | 'updated_at' | 'bonuses_balance' | 'total_spent'>
+  >();
 
   useEffect(() => {
     loadClients();
@@ -58,6 +63,33 @@ export const Clients: React.FC = () => {
         setError('Ошибка при удалении клиента');
         console.error('Ошибка удаления клиента:', err);
       }
+    }
+  };
+
+  const openEditClientModal = (client: Client) => {
+    setEditingClient(client);
+    setEditClientData({
+      name: client.name,
+      phone: client.phone,
+      email: client.email,
+      birthday: client.birthday,
+      segment: client.segment,
+    });
+    setShowEditClientModal(true);
+  };
+
+  const handleEditClient = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingClient || !editClientData) return;
+
+    try {
+      const updated = await clientsService.update(editingClient.id, editClientData);
+      setClients(prev => prev.map(c => (c.id === editingClient.id ? updated.data : c)));
+      setShowEditClientModal(false);
+      setEditingClient(null);
+    } catch (err) {
+      setError('Ошибка при обновлении клиента');
+      console.error('Ошибка редактирования клиента:', err);
     }
   };
 
@@ -111,11 +143,86 @@ export const Clients: React.FC = () => {
               <div className="ltv-client-card__actions">
                 <button className="ltv-button ltv-button--secondary" onClick={() => { setSelectedClient(client); setShowBonusesModal(true); setBonusType('charge'); }}>Начислить бонусы</button>
                 <button className="ltv-button ltv-button--danger" onClick={() => { setSelectedClient(client); setShowBonusesModal(true); setBonusType('writeoff'); }}>Списать бонусы</button>
-                <button className="ltv-button ltv-button--edit" onClick={() => {/* TODO: Реализовать редактирование */ alert('Функция редактирования пока не реализована.') }}>Редактировать</button>
+                <button
+                  className="ltv-button ltv-button--edit"
+                  onClick={() => openEditClientModal(client)}
+                >
+                  Редактировать
+                </button>
                 <button className="ltv-button ltv-button--delete" onClick={() => handleDeleteClient(client.id)}>Удалить</button>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {showEditClientModal && editingClient && (
+        <div className="ltv-modal-overlay">
+          <div className="ltv-modal-content ltv-card">
+            <h3>Редактировать клиента</h3>
+            <form onSubmit={handleEditClient}>
+              <div className="form-group">
+                <label htmlFor="editClientName">Имя клиента</label>
+                <input
+                  id="editClientName"
+                  type="text"
+                  value={editClientData?.name || ''}
+                  onChange={e => setEditClientData({ ...editClientData!, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="editClientPhone">Телефон</label>
+                <input
+                  id="editClientPhone"
+                  type="tel"
+                  value={editClientData?.phone || ''}
+                  onChange={e => setEditClientData({ ...editClientData!, phone: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="editClientEmail">Email (необязательно)</label>
+                <input
+                  id="editClientEmail"
+                  type="email"
+                  value={editClientData?.email || ''}
+                  onChange={e => setEditClientData({ ...editClientData!, email: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="editClientBirthday">Дата рождения (необязательно)</label>
+                <input
+                  id="editClientBirthday"
+                  type="date"
+                  value={editClientData?.birthday || ''}
+                  onChange={e => setEditClientData({ ...editClientData!, birthday: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="editClientSegment">Сегмент (необязательно)</label>
+                <input
+                  id="editClientSegment"
+                  type="text"
+                  value={editClientData?.segment || ''}
+                  onChange={e => setEditClientData({ ...editClientData!, segment: e.target.value })}
+                />
+              </div>
+              <div className="ltv-modal-actions">
+                <button type="submit" className="ltv-button">Сохранить</button>
+                <button
+                  type="button"
+                  className="ltv-button ltv-button--cancel"
+                  onClick={() => {
+                    setShowEditClientModal(false);
+                    setEditingClient(null);
+                  }}
+                >
+                  Отмена
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
 

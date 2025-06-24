@@ -48,7 +48,8 @@ const DataExportImport: React.FC = () => {
     if (file) {
       importFromExcel(file, (data) => {
         toast.success('Импортировано записей: ' + data.length);
-        // TODO: обработать импортированные данные
+        console.log('Импортированные данные', data);
+        // TODO: отправить данные на сервер или сохранить в состоянии
       });
     }
   };

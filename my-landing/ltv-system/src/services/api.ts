@@ -23,6 +23,10 @@ export const clientsService = {
   async create(client: any) {
     return { data: { ...client, id: Date.now().toString() } };
   },
+  async update(id: string, client: any) {
+    // В реальном приложении здесь был бы запрос на сервер
+    return { data: { ...client, id } };
+  },
   async delete(id: string) {
     return { data: { id } };
   }
