@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.scss';
+import { toast } from 'react-toastify';
 import LtvLogo from '../../assets/LtvLogo.svg';
 import GlobalSearch from '../GlobalSearch';
 import VoiceControl from '../VoiceControl';
@@ -14,19 +15,21 @@ export const Header: React.FC<{ onMenuClick?: () => void }> = ({ onMenuClick }) 
 
   const handleResultClick = (type: 'client' | 'transaction', id: string) => {
     // TODO: реализовать переход к клиенту/транзакции или выделение
-    alert(`Переход к ${type === 'client' ? 'клиенту' : 'транзакции'} с id: ${id}`);
+    toast.info(
+      `Переход к ${type === 'client' ? 'клиенту' : 'транзакции'} с id: ${id}`,
+    );
   };
 
   const handleVoiceCommand = (command: string) => {
     // Примеры команд: "найти Иван", "добавить клиента", "открыть транзакции"
     if (/найти|поиск|search/i.test(command)) {
-      alert('Выполнен голосовой поиск: ' + command);
+      toast.info('Выполнен голосовой поиск: ' + command);
     } else if (/добавить.*клиент/i.test(command)) {
-      alert('Голосовая команда: добавить клиента');
+      toast.info('Голосовая команда: добавить клиента');
     } else if (/транзакц/i.test(command)) {
-      alert('Голосовая команда: открыть транзакции');
+      toast.info('Голосовая команда: открыть транзакции');
     } else {
-      alert('Голосовая команда: ' + command);
+      toast.info('Голосовая команда: ' + command);
     }
   };
 

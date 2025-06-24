@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { IconButton, Tooltip, Paper, Typography, Fade } from '@mui/material';
+import { toast } from 'react-toastify';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import StopIcon from '@mui/icons-material/Stop';
 
@@ -12,7 +13,7 @@ const VoiceControl: React.FC<{ onCommand: (command: string) => void }> = ({ onCo
 
   const startListening = () => {
     if (!SpeechRecognition) {
-      alert('Ваш браузер не поддерживает голосовое управление');
+      toast.error('Ваш браузер не поддерживает голосовое управление');
       return;
     }
     const recognition = new SpeechRecognition();

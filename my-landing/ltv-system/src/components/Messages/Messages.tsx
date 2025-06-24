@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { messagesService, clientsService } from '../../services/api';
 import type { Message, Client } from '../../types/api';
 import './Messages.scss';
+import { toast } from 'react-toastify';
 
 export const Messages: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -57,7 +58,7 @@ export const Messages: React.FC = () => {
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedClientId || !messageContent) {
-      alert('Выберите клиента и введите текст сообщения.');
+      toast.error('Выберите клиента и введите текст сообщения.');
       return;
     }
 

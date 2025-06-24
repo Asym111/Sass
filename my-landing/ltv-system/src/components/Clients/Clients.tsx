@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { clientsService, bonusesService } from '../../services/api';
 import type { Client, Transaction } from '../../types/api';
 import './Clients.scss';
+import { toast } from 'react-toastify';
 
 export const Clients: React.FC = () => {
   const [clients, setClients] = useState<Client[]>([]);
@@ -35,7 +36,7 @@ export const Clients: React.FC = () => {
   const handleAddClient = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newClient?.name || !newClient?.phone) {
-      alert('Имя и телефон обязательны для нового клиента.');
+      toast.error('Имя и телефон обязательны для нового клиента.');
       return;
     }
     try {
@@ -111,7 +112,15 @@ export const Clients: React.FC = () => {
               <div className="ltv-client-card__actions">
                 <button className="ltv-button ltv-button--secondary" onClick={() => { setSelectedClient(client); setShowBonusesModal(true); setBonusType('charge'); }}>Начислить бонусы</button>
                 <button className="ltv-button ltv-button--danger" onClick={() => { setSelectedClient(client); setShowBonusesModal(true); setBonusType('writeoff'); }}>Списать бонусы</button>
-                <button className="ltv-button ltv-button--edit" onClick={() => {/* TODO: Реализовать редактирование */ alert('Функция редактирования пока не реализована.') }}>Редактировать</button>
+                <button
+                  className="ltv-button ltv-button--edit"
+                  onClick={() => {
+                    /* TODO: Реализовать редактирование */
+                    toast.info('Функция редактирования пока не реализована.');
+                  }}
+                >
+                  Редактировать
+                </button>
                 <button className="ltv-button ltv-button--delete" onClick={() => handleDeleteClient(client.id)}>Удалить</button>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Settings.scss';
+import { toast } from 'react-toastify';
 
 export const Settings: React.FC = () => {
   const [businessName, setBusinessName] = useState<string>('Название вашей компании');
@@ -8,8 +9,12 @@ export const Settings: React.FC = () => {
 
   const handleSaveChanges = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Сохранение настроек:', { businessName, contactEmail, notificationsEnabled });
-    alert('Настройки сохранены (только в консоли)!');
+    console.log('Сохранение настроек:', {
+      businessName,
+      contactEmail,
+      notificationsEnabled,
+    });
+    toast.success('Настройки сохранены!');
   };
 
   return (
